@@ -72,8 +72,8 @@ export default function Home() {
       if (category !== 'All') params.category = category;
       if (search) params.search = search;
       const { data } = await getPosts(params);
-      setPosts(data.posts);
-      setTotalPages(data.pages);
+      setPosts(data?.posts || []);
+      setTotalPages(data?.pages || 1);
     } catch (err) {
       console.error(err);
     } finally {
