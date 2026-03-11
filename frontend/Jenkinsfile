@@ -32,7 +32,7 @@ pipeline{
 
         stage('move static file to s3 bucket'){
             steps{
-                withCredentials([[$class: 'AmazonWebServiceCredentialsBinding' CredentialsId: 'aws-cred']]){
+                withCredentials([[$class: 'AmazonWebServiceCredentialsBinding', credentialsId: 'aws-cred']]){
                 sh "/usr/local/bin/aws s3 sync frontend/build/ s3://${S3_BUCKET} --delete"
                 }
             }
@@ -40,7 +40,7 @@ pipeline{
 
         stage('invalidate cloudfront cache'){
             steps{
-                withCredentials([[$class: 'AmazonWebServiceCredentialsBinding' CredentialsId: 'aws-cred']]){
+                withCredentials([[$class: 'AmazonWebServiceCredentialsBinding', credentialsId: 'aws-cred']]){
                 sh "/usr/local/bin/aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION ID} --paths '/*'"
                 }
             }
