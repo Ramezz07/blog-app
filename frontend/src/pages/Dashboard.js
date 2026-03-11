@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { getPosts, deletePost, getMyStats } from '../api';
 import { useAuth } from '../context/AuthContext';
 
@@ -29,7 +29,7 @@ export default function Dashboard() {
   const [stats, setStats] = useState({ totalPosts: 0, totalViews: 0, totalLikes: 0 });
   const [loading, setLoading] = useState(true);
 
-  const load = async () => {
+  const load = useCallback(async () => {
     setLoading(true);
     try {
       const [postsRes, statsRes] = await Promise.all([getPosts({ limit: 50 }), getMyStats()]);
@@ -41,7 +41,7 @@ export default function Dashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user._id]);
 
   useEffect(() => { load(); }, [load]);
 
