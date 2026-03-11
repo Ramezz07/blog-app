@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { getPosts } from '../api';
 import PostCard from '../components/PostCard';
 
@@ -65,7 +65,7 @@ export default function Home() {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     setLoading(true);
     try {
       const params = { page, limit: 9 };
@@ -79,16 +79,16 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [page, category, search]);
 
   useEffect(() => {
     fetchPosts();
-  }, [category, page]);
+  }, [fetchPosts, category, page]);
 
   useEffect(() => {
     const timer = setTimeout(() => { setPage(1); fetchPosts(); }, 500);
     return () => clearTimeout(timer);
-  }, [search]);
+  }, [fetchPosts, search]);
 
   return (
     <div>

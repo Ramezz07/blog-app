@@ -71,7 +71,7 @@ export default function PostDetail() {
       setLikeCount(data.likes?.length || 0);
       if (user) setLiked(data.likes?.includes(user._id));
     }).catch(() => navigate('/'));
-  }, [id]);
+  }, [id, navigate, user]);
 
   const handleLike = async () => {
     if (!user) return navigate('/login');

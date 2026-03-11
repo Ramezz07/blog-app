@@ -25,7 +25,6 @@ const s = {
 
 export default function Dashboard() {
   const { user } = useAuth();
-  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [stats, setStats] = useState({ totalPosts: 0, totalViews: 0, totalLikes: 0 });
   const [loading, setLoading] = useState(true);
@@ -44,7 +43,7 @@ export default function Dashboard() {
     }
   };
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => { load(); }, [load]);
 
   const handleDelete = async (id) => {
     if (window.confirm('Delete this post?')) {
