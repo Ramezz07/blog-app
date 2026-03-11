@@ -1,10 +1,10 @@
-pipeline{
+ pipeline{
     agent any
 
     environment{
         REGION='us-east-1'
         S3_BUCKET='blog-app7'
-        DISTRIBUTION ID='E17PETT8G2VOVG'
+        DISTRIBUTION_ID='E17PETT8G2VOVG'
     }
 
     stages{
@@ -41,7 +41,7 @@ pipeline{
         stage('invalidate cloudfront cache'){
             steps{
                 withCredentials([[$class: 'AmazonWebServiceCredentialsBinding', credentialsId: 'aws-cred']]){
-                sh "/usr/local/bin/aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION ID} --paths '/*'"
+                sh "/usr/local/bin/aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths '/*'"
                 }
             }
         }
