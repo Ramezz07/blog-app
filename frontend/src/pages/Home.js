@@ -127,7 +127,7 @@ export default function Home() {
           </div>
         ) : (
           <div style={styles.grid}>
-            {posts.length > 0 ? posts.map(post => (
+            {posts?.length > 0 ? posts.map(post => (
               <PostCard key={post._id} post={post} />
             )) : (
               <div style={styles.empty}>
