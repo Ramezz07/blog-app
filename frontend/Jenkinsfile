@@ -16,7 +16,7 @@
 
         stage('install dependendies'){
             steps{
-                dir(frontend){
+                dir('frontend'){
                 sh "npm install"
                 }
             }
@@ -24,7 +24,7 @@
 
         stage('build static files'){
             steps{
-                dir(frontend){
+                dir('frontend'){
                 sh "npm run build"
                 }
             }
